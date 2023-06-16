@@ -28,21 +28,28 @@ def dijkstra(graph, start, end):
     return distances
 
 def main():
+    # Titre de l'application
     st.title("Application de navigation accessible aux fauteuils roulants")
 
+    # Définition des limites géographiques
     min_lat, max_lat = 34.00, 34.10
     min_lon, max_lon = -5.05, -4.95
 
+    # Génération aléatoire de points
     num_points = 200
     latitudes = np.random.uniform(min_lat, max_lat, size=num_points)
     longitudes = np.random.uniform(min_lon, max_lon, size=num_points)
 
+    # Création d'un DataFrame avec les coordonnées
     df = pd.DataFrame({'lat': latitudes, 'lon': longitudes})
 
+    # Affichage d'une carte avec les points
     st.map(df)
 
+    # Instructions pour entrer les nœuds de départ et d'arrivée
     st.write("Entrez les nœuds de départ et d'arrivée pour trouver le chemin optimal accessible aux fauteuils roulants.")
 
+    # Graphe représentant les distances entre les nœuds
     graph = {
     'Ain Nokbi Park': {'Al-Qarawiyyin Mosque': 2, 'Jardin Jnan Sbil': 3, 'Batha Museum': 4},
     'Al-Attarine Madrasa': {'Bou Inania Madrasa': 1, 'Nejjarine Museum': 3, 'Bab Bou Jeloud': 4},
@@ -77,14 +84,18 @@ def main():
     'Royal Palace': {'Fez Mellah': 3, 'Dar Batha Museum': 2, 'Jardin Jnan Sbil': 4}
     }
 
+    # Liste des nœuds
     nodes = list(graph.keys())
 
-    start_node = st.selectbox("Sélectionnez le nœud de départ :", nodes)
-    end_node = st.selectbox("Sélectionnez le nœud de destination :", nodes)
+    # Sélection du nœud de départ et du nœud de destination
+    start_node = st.selectbox("Sélectionnez le nœud de départ :", nodes)
+    end_node = st.selectbox("Sélectionnez le nœud de destination :", nodes)
 
+    # Calcul des distances minimales avec l'algorithme de Dijkstra
     distances = dijkstra(graph, start_node, end_node)
     optimal_path = []
 
+    # Reconstitution du chemin optimal
     current_node = end_node
     while current_node != start_node:
         optimal_path.append(current_node)
@@ -92,14 +103,15 @@ def main():
     optimal_path.append(start_node)
     optimal_path.reverse()
 
-    st.write("Chemin optimal :")
+    # Affichage du chemin optimal et de la distance totale
+    st.write("Chemin optimal :")
     st.write(optimal_path)
-
-    st.write("Distance totale :", distances[end_node])
+    st.write("Distance totale :", distances[end_node])
 
 if __name__ == "__main__":
     main()
 
+# Style pour masquer certains éléments de l'interface Streamlit
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}

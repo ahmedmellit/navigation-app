@@ -1,7 +1,8 @@
-import streamlit as st
-from heapq import heappop, heappush
-import pandas as pd
-import numpy as np
+import streamlit as st  # Importation de la bibliothèque Streamlit pour la création d'applications web interactives
+from heapq import heappop, heappush  # Importation des fonctions heappop et heappush pour gérer les tas
+import pandas as pd  # Importation de la bibliothèque Pandas pour la manipulation de données tabulaires
+import numpy as np  # Importation de la bibliothèque NumPy pour le calcul scientifique
+
 
 def dijkstra(graph, start, end):
     distances = {node: float('inf') for node in graph}  # Initialisation des distances à l'infini pour chaque nœud
